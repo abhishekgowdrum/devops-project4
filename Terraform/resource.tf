@@ -8,7 +8,7 @@ resource "aws_vpc" "vpc1"{
 resource "aws_subnet" "sub1"{
     vpc_id=aws_vpc.vpc1.id
     cidr_block = var.sub1_cidr
-    availability_zone = us-west-2
+    availability_zone = "us-west-2"
     tags = {
         Name = var.sub1_name
     }
