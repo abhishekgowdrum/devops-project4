@@ -23,7 +23,7 @@
     - name: Run Docker container
       community.docker.docker_container:
         name: myapp
-        image: YOUR_DOCKERHUB_USERNAME/YOUR_IMAGE:latest
+        image: abhishekgowdrum/devops-project2:latest
         state: started
         restart_policy: always
         ports:
