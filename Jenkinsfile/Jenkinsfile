@@ -13,7 +13,7 @@ pipeline {
 
         stage('Terraform Init') {
             steps {
-                dir('terraform') {
+                dir('Terraform') {
                     sh 'terraform init'
                 }
             }
@@ -21,7 +21,7 @@ pipeline {
 
         stage('Create EC2') {
             steps {
-                dir('terraform') {
+                dir('Terraform') {
                     sh 'terraform apply -auto-approve'
                 }
             }
