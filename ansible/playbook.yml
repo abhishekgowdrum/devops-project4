@@ -17,13 +17,13 @@
 
     - name: Pull Docker image
       community.docker.docker_image:
-        name: abhishekgowdrum/devops-project2:latest
+        name: abhishekgowdrum/dockerlab1:commit_image
         source: pull
 
     - name: Run Docker container
       community.docker.docker_container:
         name: myapp
-        image: abhishekgowdrum/devops-project2:latest
+        image: abhishekgowdrum/dockerlab1:commit_image
         state: started
         restart_policy: always
         ports:
