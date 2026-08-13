@@ -61,10 +61,15 @@ resource "aws_security_group" "SG1"{
     }
 }
 
+resource "aws_key_pair" "west2" {
+  key_name   = "west2"
+  public_key = file("/tmp/west2.pub")
+}
+
 resource "aws_instance" "EC2"{
     ami = var.EC2_ami
     instance_type = var.EC2_Instance_type
-    key_name = var.EC2_Key_pair
+    key_name = aws_key_pair.west2.key_name
     subnet_id = aws_subnet.sub1.id
     associate_public_ip_address = true
     vpc_security_group_ids =[aws_security_group.SG1.id]
