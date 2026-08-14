@@ -17,13 +17,13 @@
 
     - name: Pull Docker image
       community.docker.docker_image:
-        name: abhishekgowdrum/dockerlab1:commit_image
+        name: nginx
         source: pull
 
     - name: Run Docker container
       community.docker.docker_container:
         name: myapp
-        image: abhishekgowdrum/dockerlab1:commit_image
+        image: nginx:latest
         state: started
         restart_policy: always
         ports:
