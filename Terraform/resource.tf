@@ -64,7 +64,7 @@ resource "aws_security_group" "SG1"{
 
 resource "aws_key_pair" "west2" {
   key_name   = "west2"
-  public_key = file("west2.pem")
+  public_key = file("/var/lib/jenkins/.ssh/west2.pub")
 }
 
 resource "aws_instance" "EC2"{
