@@ -24,7 +24,7 @@
 
     - name: Pull Nginx image
       ansible.builtin.command:
-        cmd: docker pull nginx:latest
+        cmd: docker pull abhishekgowdrum/devops-project2:latest
 
     - name: Remove existing application container if present
       ansible.builtin.command:
@@ -34,4 +34,4 @@
 
     - name: Run Nginx container
       ansible.builtin.command:
-        cmd: docker run -d --name myapp --restart always -p 80:80 nginx:latest
+        cmd: docker run -d --name myapp --restart always -p 80:80 abhishekgowdrum/devops-project2:latest
