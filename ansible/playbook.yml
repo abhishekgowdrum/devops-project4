@@ -1,12 +1,19 @@
+
+---
 - name: Deploy application
   hosts: webserver
   become: yes
 
   tasks:
-
-    - name: Install Docker
+    - name: Update Ubuntu package lists
       ansible.builtin.apt:
-        name: docker.io
+        update_cache: yes
+
+    - name: Install Docker and Python Docker support
+      ansible.builtin.apt:
+        name:
+          - docker.io
+          - python3-docker
         state: present
 
     - name: Start Docker
@@ -15,16 +22,16 @@
         state: started
         enabled: yes
 
-    - name: Pull Docker image
-      community.docker.docker_image:
-        name: nginx
-        source: pull
+    - name: Pull Nginx image
+      ansible.builtin.command:
+        cmd: docker pull nginx:latest
 
-    - name: Run Docker container
-      community.docker.docker_container:
-        name: myapp
-        image: nginx:latest
-        state: started
-        restart_policy: always
-        ports:
-          - "80:80"
+    - name: Remove existing application container if present
+      ansible.builtin.command:
+        cmd: docker rm -f myapp
+      failed_when: false
+      changed_when: false
+
+    - name: Run Nginx container
+      ansible.builtin.command:
+        cmd: docker run -d --name myapp --restart always -p 80:80 nginx:latest
