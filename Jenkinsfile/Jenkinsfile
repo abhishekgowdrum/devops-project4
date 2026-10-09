@@ -56,7 +56,7 @@ pipeline {
 ${ec2IP}
 
 [webserver:vars]
-ansible_user=ec2-user
+ansible_user=ubuntu
 ansible_private_key_file=/var/lib/jenkins/.ssh/west2.pem
 ansible_ssh_common_args='-o StrictHostKeyChecking=no'
 EOF
