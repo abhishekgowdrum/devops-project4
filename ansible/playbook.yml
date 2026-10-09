@@ -5,7 +5,7 @@
   tasks:
 
     - name: Install Docker
-      ansible.builtin.yum:
+      ansible.builtin.apt:
         name: docker
         state: present
 
