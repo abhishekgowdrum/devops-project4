@@ -55,13 +55,6 @@ stage('Build Docker Image') {
 }
 
 
-
-        stage('Build Docker Image') {
-            steps {
-                sh "docker build -t ${REGISTRY}:${IMAGE_TAG} -t ${REGISTRY}:latest ."
-            }
-        }
-
         stage('Push Docker Image') {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', usernameVariable: 'USER', passwordVariable: 'PASS')]) {
