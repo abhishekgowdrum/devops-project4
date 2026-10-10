@@ -31,16 +31,19 @@ stage('Checkout Application') {
     }
 }
 
-stage('Install Dependencies') {
+stage('Install Dependencies & Test') {
     steps {
-        sh '''
-            python3 -m venv venv
-            ./venv/bin/python -m pip install --upgrade pip
-            ./venv/bin/python -m pip install -r requirements.txt
-            ./venv/bin/python -m pytest
-        '''
+        dir('app') {
+            sh '''
+                python3 -m venv venv
+                ./venv/bin/python -m pip install --upgrade pip
+                ./venv/bin/python -m pip install -r requirements.txt
+                ./venv/bin/python -m pytest
+            '''
+        }
     }
 }
+
 
 
 stage('Build Docker Image') {
