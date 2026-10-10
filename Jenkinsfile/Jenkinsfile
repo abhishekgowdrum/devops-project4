@@ -48,11 +48,13 @@ stage('Install Dependencies & Test') {
 
 stage('Build Docker Image') {
     steps {
-        sh '''
-            docker build \
-              -t abhishekgowdrum/devops-project4:${BUILD_NUMBER} \
-              -t abhishekgowdrum/devops-project4:latest .
-        '''
+        dir('app') {
+            sh '''
+                docker build \
+                  -t abhishekgowdrum/devops-project4:${BUILD_NUMBER} \
+                  -t abhishekgowdrum/devops-project4:latest .
+            '''
+        }
     }
 }
 
