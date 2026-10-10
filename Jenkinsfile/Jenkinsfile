@@ -2,6 +2,47 @@ pipeline {
 
     agent any
 
+     environment {
+        DOCKER_USER = 'abhishekgowdrum'
+        IMAGE_NAME  = 'devops-project2'
+        IMAGE_TAG   = "${env.BUILD_NUMBER}"
+        REGISTRY    = "${DOCKER_USER}/${IMAGE_NAME}"
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+
+        stage('Install Dependencies & Test') {
+            steps {
+                sh '''
+                    pip3 install -r requirements.txt
+                    python3 -m pytest
+                '''
+            }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                sh "docker build -t ${REGISTRY}:${IMAGE_TAG} -t ${REGISTRY}:latest ."
+            }
+        }
+
+        stage('Push Docker Image') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', usernameVariable: 'USER', passwordVariable: 'PASS')]) {
+                    sh """
+                        echo "\$PASS" | docker login -u "\$USER" --password-stdin
+                        docker push ${REGISTRY}:${IMAGE_TAG}
+                        docker push ${REGISTRY}:latest
+                        docker logout
+                    """
+                }
+            }
+
     stages {
 
         stage('Checkout') {
