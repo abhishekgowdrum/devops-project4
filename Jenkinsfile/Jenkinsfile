@@ -50,9 +50,8 @@ stage('Build Docker Image') {
     steps {
         sh '''
             docker build \
-                -t "$REGISTRY:$IMAGE_TAG" \
-                -t "$REGISTRY:latest" \
-                app
+              -t abhishekgowdrum/devops-project4:${BUILD_NUMBER} \
+              -t abhishekgowdrum/devops-project4:latest .
         '''
     }
 }
