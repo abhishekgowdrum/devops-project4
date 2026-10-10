@@ -82,5 +82,5 @@ resource "aws_instance" "EC2"{
     ]
   }
 }
-}
+
 
