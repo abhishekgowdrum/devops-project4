@@ -61,20 +61,26 @@ resource "aws_security_group" "SG1"{
     }
 }
 
-resource "aws_key_pair" "west2" {
-  key_name   = "west2"
+resource "aws_key_pair" "deployer" {
+  key_name   = "jenkins-deploy-key"
   public_key = file("/var/lib/jenkins/.ssh/west2.pub")
 }
 
 resource "aws_instance" "EC2"{
     ami = var.EC2_ami
     instance_type = var.EC2_Instance_type
-    key_name = aws_key_pair.west2.key_name
+    key_name = aws_key_pair.deployer.key_name
     subnet_id = aws_subnet.sub1.id
     associate_public_ip_address = true
     vpc_security_group_ids =[aws_security_group.SG1.id]
     tags = {
         Name = var.EC2_Name
     }
+  lifecycle {
+    replace_triggered_by = [
+      aws_key_pair.deployer
+    ]
+  }
+}
 }
 
