@@ -129,12 +129,19 @@ EOF
 }
 
         stage('Test Ansible Connection') {
-            steps {
-                sh '''
-                ansible -i ansible/inventory.ini webserver -m ping
-                '''
-            }
-        }
+    steps {
+        sh '''
+            echo "Waiting for the new EC2 instance to accept SSH..."
+
+            ansible -i ansible/inventory.ini webserver \
+                -m wait_for_connection \
+                -a "timeout=300 sleep=10 connect_timeout=5"
+
+            echo "SSH is ready. Testing Ansible..."
+            ansible -i ansible/inventory.ini webserver -m ping
+        '''
+    }
+}
 
         stage('Deploy Application') {
             steps {
