@@ -5,4 +5,4 @@ def test_home():
     response = client.get('/')
 
     assert response.status_code == 200
-    assert b"Hello DevOps! CI/CD deployment is working successfully." in response.data
+    assert b"Hello recruiter! CI/CD deployment is working successfully." in response.data
