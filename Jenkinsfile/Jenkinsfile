@@ -85,17 +85,7 @@ stage('Build Docker Image') {
                 }
             }
         }
-        stage('Import Existing Key Pair') {
-    steps {
-        dir('Terraform') {
-            sh '''
-                terraform import 
-                  aws_key_pair.deployer 
-                  jenkins-deploy-key || true
-            '''
-        }
-    }
-}
+        
 
         stage('Get EC2 IP') {
             steps {
