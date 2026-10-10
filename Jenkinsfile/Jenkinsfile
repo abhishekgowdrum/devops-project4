@@ -10,6 +10,13 @@ pipeline {
     }
 
     stages {
+         stage('Checkout') {
+            steps {
+                git branch: 'main',
+                    url: 'https://github.com/abhishekgowdrum/devops-project4.git'
+            }
+        }
+
         stage('Checkout') {
             steps {
                 checkout scm
@@ -42,15 +49,6 @@ pipeline {
                     """
                 }
             }
-
-    stages {
-
-        stage('Checkout') {
-            steps {
-                git branch: 'main',
-                    url: 'https://github.com/abhishekgowdrum/devops-project4.git'
-            }
-        }
 
         stage('Terraform Init') {
             steps {
@@ -127,4 +125,5 @@ EOF
             }
         }
     }
-}
+    }
+    
