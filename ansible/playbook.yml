@@ -34,4 +34,4 @@
 
     - name: Run  container
       ansible.builtin.command:
-        cmd: docker run -d --name myapp --restart always -p 80:8080 abhishekgowdrum/devops-project2:latest
+        cmd: docker run -d --name myapp --restart always -p 8080:8080 abhishekgowdrum/devops-project2:latest
