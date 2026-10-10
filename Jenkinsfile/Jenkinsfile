@@ -22,7 +22,15 @@ pipeline {
                 checkout scm
             }
         }
-        
+stage('Checkout Application') {
+    steps {
+        dir('app') {
+            git branch: 'main',
+                url: 'https://github.com/abhishekgowdrum/devops-project2.git'
+        }
+    }
+}
+
 stage('Install Dependencies') {
     steps {
         sh '''
@@ -34,6 +42,17 @@ stage('Install Dependencies') {
     }
 }
 
+
+stage('Build Docker Image') {
+    steps {
+        sh '''
+            docker build \
+                -t "$REGISTRY:$IMAGE_TAG" \
+                -t "$REGISTRY:latest" \
+                app
+        '''
+    }
+}
 
 
 
