@@ -146,14 +146,15 @@ EOF
 }
 
         stage('Deploy Application') {
-            steps {
-                sh '''
-                ansible-playbook \
-                -i ansible/inventory.ini \
-                ansible/playbook.yml
-                '''
-            }
-        }
+    steps {
+        sh '''
+            ansible-playbook \
+              -i ansible/inventory.ini \
+              ansible/playbook.yml \
+              -e "image_tag=${BUILD_NUMBER}"
+        '''
+    }
+}
     }
     }
     
